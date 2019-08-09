@@ -1,0 +1,89 @@
+.container {
+    flex: 0 0 auto;
+    position: relative;
+    overflow: visible;
+    z-index: 6;
+    background-color: #21252b;
+    color: #9da5b4;
+    transition: transform 0.25s ease-in-out;
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.24) 0px 1px 4px;
+}
+
+.expandedContainer {
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.24) 0px 1px 4px;
+}
+
+.sectionsWrapper {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-height: 100%;
+}
+
+.section {
+    position: relative;
+    z-index: 7;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex: 0 0 auto;
+    max-height: 100%;
+}
+
+.label {
+    align-items: center;
+    display: flex;
+    flex: 0 0 1.5em;
+    flex-direction: row;
+    font-size: 0.875rem;
+    font-weight: normal;
+    margin: 0 -0.5rem;
+    padding: 0 1rem;
+    transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+.label:hover {
+    background-color: #21252b;
+    color: #fff;
+}
+
+.checkbox {
+    margin: 0 0.75rem 0 0 !important;
+}
+
+.checkbox:disabled {
+    opacity: 0.5;
+}
+
+@media(max-width: 600px) {
+    .sectionsWrapper {
+        max-height: 300px;
+        display: block;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media(max-width: 1000px) {
+    .section {
+        flex: 1 0 100px;
+        max-height: 100%;
+        overflow: auto;
+    }
+}
+
+@media(min-width: 1001px) {
+    .container {
+        height: 100%; /* Safari fix for scrolling/overflow */
+    }
+
+    .expandedContainer {
+        height: calc(100% - 38px); /* 38px is babel-version tab's height */
+        width: 18rem;
+    }
+}
