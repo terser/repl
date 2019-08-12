@@ -13,6 +13,7 @@ const CodeMirrorPanel = props => {
     options,
     placeholder,
     code,
+    fileSize,
     info,
     errorMessage
   } = props;
@@ -34,6 +35,7 @@ const CodeMirrorPanel = props => {
           preserveScrollPosition={onChange == null}
           value={code}
         />
+        {options.fileSize && <div className={styles.fileSize}>{fileSize} bytes</div>}
       </div>
       {info && <pre className={infoClass}>{info}</pre>}
       {errorMessage && <pre className={errorClass}>{errorMessage}</pre>}
@@ -46,7 +48,8 @@ CodeMirrorPanel.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.object,
   placeholder: PropTypes.string,
-  code: PropTypes.string
+  code: PropTypes.string,
+  fileSize: PropTypes.string
 };
 
 CodeMirrorPanel.defaultProps = {
@@ -54,7 +57,8 @@ CodeMirrorPanel.defaultProps = {
   onChange: null,
   options: {},
   placeholder: null,
-  code: null
+  code: null,
+  fileSize: null
 };
 
 export default CodeMirrorPanel;

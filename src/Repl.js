@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import ReplOptions from './ReplOptions';
-import CodeMirrorPanel from './CodeMirrorPanel';
 import debounce from 'lodash.debounce';
 import terser from 'terser';
+
+import ReplOptions from './ReplOptions';
+import CodeMirrorPanel from './CodeMirrorPanel';
+import { getCodeSizeInBytes } from './lib/helpers';
 
 import styles from './Repl.module.css';
 
@@ -11,12 +13,15 @@ const DEBOUNCE_DELAY = 500;
 class Repl extends Component {
   state = {
     code: '// write or paste code here',
-    compiled: "// terser's ouput will be shown here",
-    errorMessage: null
+    minified: "// terser's ouput will be shown here",
+    errorMessage: null,
+    rawSize: 0,
+    minifiedSize: 0
   };
 
   options = {
-    lineWrapping: true
+    lineWrapping: true,
+    fileSize: true
   };
 
   render() {
@@ -31,12 +36,14 @@ class Repl extends Component {
               code={this.state.code}
               onChange={this._updateCode}
               options={this.options}
+              fileSize={this.state.rawSize}
               placeholder="Write or paste code here"
             />
             <CodeMirrorPanel
               className={styles.codeMirrorPanel}
-              code={this.state.compiled}
+              code={this.state.minified}
               options={this.options}
+              fileSize={this.state.minifiedSize}
               placeholder="Terser output will be shown here"
             />
           </div>
@@ -46,23 +53,29 @@ class Repl extends Component {
   }
 
   _updateCode = code => {
-    this.setState({ code });
-    this._compileToState(code);
+    this.setState({
+      code,
+      rawSize: getCodeSizeInBytes(code)
+    });
+    this._minifyToState(code);
   };
 
-  _compileToState = debounce(
-    code => this._compile(code, this._persistState),
+  _minifyToState = debounce(
+    code => this._minify(code, this._persistState),
     DEBOUNCE_DELAY
   );
 
-  _compile = (code, setStateCallback) => {
+  _minify = (code, setStateCallback) => {
     // TODO: put this in a worker to avoid blocking the UI on heavy content
     const result = terser.minify(code);
 
     if (result.error) {
       this.setState({ errorMessage: result.error });
     } else {
-      this.setState({ compiled: result.code });
+      this.setState({
+        minified: result.code,
+        minifiedSize: getCodeSizeInBytes(result.code)
+      });
     }
   };
 }

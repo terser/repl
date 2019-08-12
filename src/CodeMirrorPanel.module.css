@@ -39,3 +39,15 @@
   color: #ff0000;
 
 }
+
+.fileSize {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  z-index: 2;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(225, 225, 225, 0.75);
+  color: rgba(0, 0, 0, 0.5);
+  border: 0;
+}
