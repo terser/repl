@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.CodeMirror {
+  height: 100% !important;
+  width: 100% !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.CodeMirror-lines pre.CodeMirror-placeholder {
+  color: #aaa;
+}

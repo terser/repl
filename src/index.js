@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import Repl from './Repl';
 import * as serviceWorker from './serviceWorker';
+
+import './index.css';
 
 ReactDOM.render(<Repl />, document.getElementById('root'));
 

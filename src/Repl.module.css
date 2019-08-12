@@ -1,6 +1,6 @@
 .container {
     height: 100%;
-    height: calc(100vh - 50px); /* 50px is the header's height */
+    height: calc(100vh); /* 50px is the header's height */
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -25,4 +25,8 @@
     overflow: auto;
     font-size: 0.875rem;
     line-height: 1.25rem;
+}
+
+.codeMirrorPanel {
+    flex: 0 0 50%;
 }
