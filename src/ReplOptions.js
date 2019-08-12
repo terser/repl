@@ -16,7 +16,7 @@ const ReplOptions = (props) => {
             >
               <label className={styles.label}>
                 <input
-                      checked={true}
+                      defaultChecked={true}
                       className={styles.checkbox}
                       type="checkbox"
                     />
@@ -30,7 +30,7 @@ const ReplOptions = (props) => {
             >
               <label className={styles.label}>
                 <input
-                      checked={true}
+                      defaultChecked={true}
                       className={styles.checkbox}
                       type="checkbox"
                     />
