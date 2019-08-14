@@ -1,16 +1,9 @@
 const options = {
-  parse: {
-    bare_returns: false,
-    ecma: 8,
-    html5_comments: true,
-    shebang: true
-  },
-
   compress: {
-    arrows: true,
     arguments: false,
+    arrows: true,
     booleans: true,
-    boolean_as_integers: false,
+    booleans_as_integers: false,
     collapse_vars: true,
     comparisons: true,
     computed_props: true,
@@ -23,12 +16,13 @@ const options = {
     ecma: 5,
     evaluate: true,
     expression: false,
-    global_defs: {},
+    global_defs: false,
     hoist_funs: false,
     hoist_props: true,
     hoist_vars: false,
+    ie8: false,
     if_return: true,
-    inline: true,
+    inline: 3,
     join_vars: true,
     keep_classnames: false,
     keep_fargs: true,
@@ -39,15 +33,15 @@ const options = {
     negate_iife: true,
     passes: 1,
     properties: true,
-    pure_funcs: null,
     pure_getters: 'strict',
+    pure_funcs: null,
     reduce_funcs: true,
     reduce_vars: true,
     sequences: true,
     side_effects: true,
     switches: true,
-    toplevel: false,
     top_retain: null,
+    toplevel: false,
     typeofs: true,
     unsafe: false,
     unsafe_arrows: false,
@@ -61,30 +55,31 @@ const options = {
     unused: true,
     warnings: false
   },
-
+  enclose: false,
+  ie8: false,
+  keep_classnames: false,
+  keep_fnames: false,
   mangle: {
+    cache: null,
     eval: false,
+    ie8: false,
     keep_classnames: false,
     keep_fnames: false,
     module: false,
-    reserved: [],
-    toplevel: false,
+    properties: false,
+    reserved: ['arguments'],
     safari10: false,
-    properties: {
-      builtins: false,
-      debug: false,
-      keep_quoted: false,
-      regex: null,
-      reserved: []
-    }
+    toplevel: false
   },
-
+  module: false,
+  nameCache: null,
   output: {
     ascii_only: false,
-    beautify: true,
+    beautify: false,
     braces: false,
     comments: false,
     ecma: 5,
+    ie8: false,
     indent_level: 4,
     indent_start: 0,
     inline_script: true,
@@ -96,23 +91,41 @@ const options = {
     safari10: false,
     semicolons: true,
     shebang: true,
+    shorthand: false,
+    source_map: null,
     webkit: false,
+    width: 80,
     wrap_iife: false
   },
-
-  sourceMap: {},
-
-  ecma: 5,
-
-  keep_classnames: false,
-
-  keep_fnames: false,
-  ie8: false,
-  module: false,
-  nameCache: null,
+  parse: {
+    toplevel: {},
+    filename: '0',
+    bare_returns: false,
+    ecma: 8,
+    expression: false,
+    html5_comments: true,
+    module: false,
+    shebang: true,
+    strict: false
+  },
+  rename: {
+    cache: null,
+    eval: false,
+    ie8: false,
+    keep_classnames: false,
+    keep_fnames: false,
+    module: false,
+    properties: false,
+    reserved: ['arguments'],
+    safari10: false,
+    toplevel: false
+  },
   safari10: false,
+  sourceMap: false,
+  timings: false,
   toplevel: false,
-  warnings: false
+  warnings: false,
+  wrap: false
 };
 
 export default options;
