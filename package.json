@@ -5,6 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "codemirror": "^5.48.2",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

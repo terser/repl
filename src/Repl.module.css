@@ -27,6 +27,21 @@
     line-height: 1.25rem;
 }
 
+.verticalSplit {
+    width: 100%;
+}
+
 .codeMirrorPanel {
     flex: 0 0 50%;
+}
+
+.codeMirrorPanelOptions {
+    flex: 0 0 50%;
+    height: 30%;
+    border-bottom: 1.5px solid #ccc;
+}
+
+.codeMirrorPanelInput {
+    flex: 0 0 50%;
+    height: 70%;
 }
