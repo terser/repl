@@ -1,4 +1,5 @@
-const options = {
+const options = `// edit terser options
+{
   compress: {
     arguments: false,
     arrows: true,
@@ -126,6 +127,9 @@ const options = {
   toplevel: false,
   warnings: false,
   wrap: false
-};
+}`;
+
+/* eslint-disable-next-line no-eval */
+export const evalOptions = (opts) => eval(`(${opts||options})`)
 
 export default options;
