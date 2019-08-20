@@ -5,7 +5,7 @@ import cloneDeep from 'lodash.clonedeep';
 
 import CodeMirrorPanel from './CodeMirrorPanel';
 import { getCodeSizeInBytes } from './lib/helpers';
-import terserOptions from './lib/terser-options';
+import terserOptions, { evalOptions } from './lib/terser-options';
 
 import styles from './Repl.module.css';
 
@@ -13,11 +13,10 @@ const DEBOUNCE_DELAY = 500;
 
 class Repl extends Component {
   state = {
+    optionsCode: terserOptions,
     code: '// write or paste code here',
     minified: "// terser's ouput will be shown here",
-    terserOptions,
-    errorMessage: null,
-    optionsErrorMessage: null,
+    terserOptions: evalOptions(),
     rawSize: 0,
     minifiedSize: 0
   };
@@ -35,7 +34,7 @@ class Repl extends Component {
             <div className={styles.verticalSplit}>
               <CodeMirrorPanel
                 className={styles.codeMirrorPanelOptions}
-                code={JSON.stringify(this.state.terserOptions, null, 2)}
+                code={this.state.optionsCode}
                 onChange={this._updateTerserOptions}
                 options={{ lineWrapping: true }}
                 errorMessage={this.state.optionsErrorMessage}
@@ -74,7 +73,8 @@ class Repl extends Component {
 
   _updateTerserOptions = options => {
     try {
-      const parsedOptions = JSON.parse(options);
+      const parsedOptions = evalOptions(options);
+
       this.setState({
         terserOptions: parsedOptions,
         optionsErrorMessage: null
@@ -82,6 +82,8 @@ class Repl extends Component {
     } catch (e) {
       this.setState({ optionsErrorMessage: e.message });
     }
+
+    this._minify(this.state.code)
   };
 
   _minifyToState = debounce(

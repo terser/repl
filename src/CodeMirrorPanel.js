@@ -49,7 +49,7 @@ CodeMirrorPanel.propTypes = {
   options: PropTypes.object,
   placeholder: PropTypes.string,
   code: PropTypes.string,
-  fileSize: PropTypes.string
+  fileSize: PropTypes.number
 };
 
 CodeMirrorPanel.defaultProps = {
