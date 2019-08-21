@@ -83,7 +83,7 @@ class Repl extends Component {
       this.setState({ optionsErrorMessage: e.message });
     }
 
-    this._minify(this.state.code)
+    this._minify(this.state.code);
   };
 
   _minifyToState = debounce(
@@ -96,16 +96,20 @@ class Repl extends Component {
     const terserOpts = cloneDeep(this.state.terserOptions);
 
     // TODO: put this in a worker to avoid blocking the UI on heavy content
-    const result = terser.minify(code, terserOpts);
+    try {
+      const result = terser.minify(code, terserOpts);
 
-    if (result.error) {
-      this.setState({ errorMessage: result.error.message });
-    } else {
-      this.setState({
-        minified: result.code,
-        minifiedSize: getCodeSizeInBytes(result.code),
-        errorMessage: null
-      });
+      if (result.error) {
+        this.setState({ errorMessage: result.error.message });
+      } else {
+        this.setState({
+          minified: result.code,
+          minifiedSize: getCodeSizeInBytes(result.code),
+          errorMessage: null
+        });
+      }
+    } catch (e) {
+      this.setState({ errorMessage: e.message });
     }
   };
 }
