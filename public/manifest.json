@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Terser REPL",
+  "name": "Terser Online REPL",
   "icons": [
     {
       "src": "favicon.ico",
