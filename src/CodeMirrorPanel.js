@@ -15,7 +15,8 @@ const CodeMirrorPanel = props => {
     code,
     fileSize,
     info,
-    errorMessage
+    errorMessage,
+    theme
   } = props;
 
   const containerClass = cx(styles.container, className);
@@ -34,6 +35,7 @@ const CodeMirrorPanel = props => {
           placeholder={placeholder}
           preserveScrollPosition={onChange == null}
           value={code}
+          theme={theme}
         />
         {options.fileSize && <div className={styles.fileSize}>{fileSize} bytes</div>}
       </div>

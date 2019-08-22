@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 
 require('codemirror/lib/codemirror.css');
+require('./paraiso-dark.css');
+require('./paraiso-light.css');
 require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/keymap/sublime');
@@ -24,7 +26,8 @@ class CodeMirrorReact extends Component {
     preserveScrollPosition: PropTypes.bool,
     options: PropTypes.object,
     placeholder: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    theme: PropTypes.string
   };
 
   static defaultProps = {
@@ -33,7 +36,8 @@ class CodeMirrorReact extends Component {
     onChange: null,
     options: {},
     placeholder: null,
-    value: null
+    value: null,
+    theme: 'default'
   };
 
   state = {
@@ -49,6 +53,7 @@ class CodeMirrorReact extends Component {
       ...this.props.options
     });
 
+    this._codeMirror.setOption('theme', this.props.theme)
     this._codeMirror.on('change', this._onChange);
     this._codeMirror.setValue(this.props.value || '');
   }
