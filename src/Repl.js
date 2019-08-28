@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import terser from 'terser';
 import cloneDeep from 'lodash.clonedeep';
 
+import Header from './Header';
 import CodeMirrorPanel from './CodeMirrorPanel';
 import { getCodeSizeInBytes } from './lib/helpers';
 import terserOptions, { evalOptions } from './lib/terser-options';
@@ -27,7 +28,8 @@ class Repl extends Component {
   };
 
   render() {
-    return (
+    return [
+      <Header />,
       <div className={styles.container}>
         <div className={styles.wrapperPanels}>
           <div className={styles.panels}>
@@ -37,7 +39,7 @@ class Repl extends Component {
                 code={this.state.optionsCode}
                 onChange={this._updateTerserOptions}
                 options={{ lineWrapping: true }}
-                theme='paraiso-light'
+                theme="paraiso-light"
                 errorMessage={this.state.optionsErrorMessage}
                 placeholder="Edit terser config here"
               />
@@ -47,7 +49,7 @@ class Repl extends Component {
                 onChange={this._updateCode}
                 options={this.options}
                 fileSize={this.state.rawSize}
-                theme='paraiso-light'
+                theme="paraiso-light"
                 errorMessage={this.state.errorMessage}
                 placeholder="Write or paste code here"
               />
@@ -57,13 +59,13 @@ class Repl extends Component {
               code={this.state.minified}
               options={this.options}
               fileSize={this.state.minifiedSize}
-              theme='paraiso-dark'
+              theme="paraiso-dark"
               placeholder="Terser output will be shown here"
             />
           </div>
         </div>
       </div>
-    );
+    ];
   }
 
   _updateCode = code => {
