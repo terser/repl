@@ -1,0 +1,17 @@
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 auto;
+}
+
+.error {
+    color: lightred;
+    font-weight: bold;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}

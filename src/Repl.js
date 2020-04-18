@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import debounce from 'lodash.debounce';
-import terser from 'terser';
 import cloneDeep from 'lodash.clonedeep';
 
-import Header from './Header';
 import CodeMirrorPanel from './CodeMirrorPanel';
 import { getCodeSizeInBytes } from './lib/helpers';
 import terserOptions, { evalOptions } from './lib/terser-options';
@@ -28,8 +26,7 @@ class Repl extends Component {
   };
 
   render() {
-    return [
-      <Header />,
+    return (
       <div className={styles.container}>
         <div className={styles.wrapperPanels}>
           <div className={styles.panels}>
@@ -65,7 +62,7 @@ class Repl extends Component {
           </div>
         </div>
       </div>
-    ];
+    );
   }
 
   _updateCode = code => {
@@ -102,7 +99,7 @@ class Repl extends Component {
 
     // TODO: put this in a worker to avoid blocking the UI on heavy content
     try {
-      const result = terser.minify(code, terserOpts);
+      const result = this.props.terser.minify(code, terserOpts);
 
       if (result.error) {
         this.setState({ errorMessage: result.error.message });
