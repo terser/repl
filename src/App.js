@@ -45,7 +45,9 @@ export default class App extends React.Component {
         return <div className={styles.message}>Loading...</div>
       } else if (error) {
         return (
-          <div className={styles.message + ' ' + styles.error}>{error?.message || 'An error has occurred'}</div>
+          <div className={styles.message + ' ' + styles.error}>
+            {error?.message || 'An error has occurred'}
+          </div>
         )
       } else {
         return <Repl terser={terser} />
