@@ -93,13 +93,13 @@ class Repl extends Component {
     DEBOUNCE_DELAY
   );
 
-  _minify = (code, setStateCallback) => {
+  _minify = async (code, setStateCallback) => {
     // we need to clone this because terser mutates the options object :(
     const terserOpts = cloneDeep(this.state.terserOptions);
 
     // TODO: put this in a worker to avoid blocking the UI on heavy content
     try {
-      const result = this.props.terser.minify(code, terserOpts);
+      const result = await this.props.terser.minify(code, terserOpts);
 
       if (result.error) {
         this.setState({ errorMessage: result.error.message });
