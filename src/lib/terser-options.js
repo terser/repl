@@ -133,6 +133,7 @@
 
 const options = `// edit terser options
 {
+  module: true,
   compress: {},
   mangle: {},
   output: {},
