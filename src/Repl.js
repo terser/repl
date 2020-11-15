@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import debounce from 'lodash.debounce';
-import cloneDeep from 'lodash.clonedeep';
+import { debounce, cloneDeep } from 'lodash-es';
 
 import CodeMirrorPanel from './CodeMirrorPanel';
 import { getCodeSizeInBytes } from './lib/helpers';
