@@ -12,7 +12,7 @@ const DEBOUNCE_DELAY = 500;
 class Repl extends Component {
   state = {
     optionsCode: terserOptions,
-    code: '// write or paste code here',
+    code: '// write or paste code here\n\n',
     minified: "// terser's ouput will be shown here",
     terserOptions: evalOptions(),
     rawSize: 0,
