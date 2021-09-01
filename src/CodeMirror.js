@@ -8,6 +8,7 @@ require('./paraiso-light.css');
 require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/keymap/sublime');
+require('codemirror/addon/display/placeholder');
 
 const DEFAULT_CODE_MIRROR_OPTIONS = {
   autoCloseBrackets: true,

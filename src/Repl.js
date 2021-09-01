@@ -11,8 +11,8 @@ const DEBOUNCE_DELAY = 500;
 
 const defaultState = {
   optionsCode: terserOptions,
-  code: '// write or paste code here\n\n',
-  minified: "// terser's ouput will be shown here",
+  code: '',
+  minified: '',
   terserOptions: evalOptions(),
   rawSize: 0,
   minifiedSize: 0,
@@ -40,7 +40,7 @@ class Repl extends Component {
                 options={{ lineWrapping: true }}
                 theme="paraiso-light"
                 errorMessage={this.state.optionsErrorMessage}
-                placeholder="Edit terser config here"
+                placeholder="// Edit terser config here"
               />
               <CodeMirrorPanel
                 className={styles.codeMirrorPanelInput}
@@ -50,7 +50,7 @@ class Repl extends Component {
                 fileSize={this.state.rawSize}
                 theme="paraiso-light"
                 errorMessage={this.state.errorMessage}
-                placeholder="Write or paste code here"
+                placeholder="// Write or paste code here"
               />
             </div>
             <CodeMirrorPanel
@@ -59,7 +59,7 @@ class Repl extends Component {
               options={this._options}
               fileSize={this.state.minifiedSize}
               theme="paraiso-dark"
-              placeholder="Terser output will be shown here"
+              placeholder="// Terser output will be shown here"
             />
           </div>
         </div>
