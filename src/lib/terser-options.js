@@ -141,7 +141,15 @@ const options = `// edit terser options
   rename: {},
 }`;
 
-/* eslint-disable-next-line no-eval */
-export const evalOptions = (opts) => eval(`(${opts||options})`)
+export const evalOptions = (opts) => {
+  opts = opts || options;
+  // Strip line comments
+  opts = opts.replace(/\/\/.*/g, '');
+  // Trim trailing commas
+  opts = opts.replace(/,\s*([\]}])/g, '$1');
+  // Quote property names
+  opts = opts.replace(/^\s*(\w+):/gm, '"$1":');
+  return JSON.parse(opts);
+}
 
 export default options;
