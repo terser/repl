@@ -12,9 +12,11 @@
     display: flex;
     -webkit-box-orient: horizontal;
     flex-flow: row nowrap;
+    align-items: center;
     position: relative;
     text-align: left;
     margin-left: 1.20%;
+    user-select: none;
 }
 
 .container header img {
@@ -25,12 +27,21 @@
     margin-right: 10px;
 }
 
-.container header h2 {
+.container header h1 {
     display: block;
-    font-size: 1.25em;
-    line-height: 18px;
+    font-size: 1.25rem;
     margin: 0;
     position: relative;
+}
+
+.container header p {
+    display: block;
+    font-size: 1rem;
+    margin: 0;
+    margin-left: 1rem;
+    position: relative;
+    /* Vertically align with the title */
+    padding-top: 0.2em;
 }
 
 .container a {

@@ -9,10 +9,12 @@ const Header = () => {
         <a href="https://terser.org">
           <img
             src="https://terser.org/img/terser-square-logo.png"
-            alt="Terser logo"
+            alt=""
+            role="presentation"
           />
-          <h2>terser</h2>
+          <h1>Terser REPL</h1>
         </a>
+        <p>Try Terser on this page</p>
       </header>
     </div>
   );
