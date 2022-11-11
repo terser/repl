@@ -14,7 +14,7 @@ const Header = () => {
           />
           <h1>Terser REPL</h1>
         </a>
-        <p>Try Terser on this page</p>
+        <p>Try Terser in your browser</p>
       </header>
     </div>
   );
