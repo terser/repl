@@ -2,24 +2,27 @@ import React, { Component } from 'react';
 import { debounce, cloneDeep } from 'lodash-es';
 
 import CodeMirrorPanel from './CodeMirrorPanel';
-import { getCodeSizeInBytes } from './lib/helpers';
+import { getCodeSizeInBytes, loadState, saveState } from './lib/helpers';
 import terserOptions, { evalOptions } from './lib/terser-options';
 
 import styles from './Repl.module.css';
 
 const DEBOUNCE_DELAY = 500;
 
-class Repl extends Component {
-  state = {
-    optionsCode: terserOptions,
-    code: '// write or paste code here\n\n',
-    minified: "// terser's output will be shown here",
-    terserOptions: evalOptions(),
-    rawSize: 0,
-    minifiedSize: 0
-  };
+const defaultState = {
+  optionsCode: terserOptions,
+  code: '',
+  minified: '',
+  terserOptions: evalOptions(),
+  rawSize: 0,
+  minifiedSize: 0,
+};
 
-  options = {
+class Repl extends Component {
+  state = loadState() || defaultState;
+
+  _minifyId = 0;
+  _options = {
     lineWrapping: true,
     fileSize: true
   };
@@ -37,26 +40,26 @@ class Repl extends Component {
                 options={{ lineWrapping: true }}
                 theme="paraiso-light"
                 errorMessage={this.state.optionsErrorMessage}
-                placeholder="Edit terser config here"
+                placeholder="// Edit terser config here"
               />
               <CodeMirrorPanel
                 className={styles.codeMirrorPanelInput}
                 code={this.state.code}
                 onChange={this._updateCode}
-                options={this.options}
+                options={this._options}
                 fileSize={this.state.rawSize}
                 theme="paraiso-light"
                 errorMessage={this.state.errorMessage}
-                placeholder="Write or paste code here"
+                placeholder="// Write or paste code here"
               />
             </div>
             <CodeMirrorPanel
               className={styles.codeMirrorPanel}
               code={this.state.minified}
-              options={this.options}
+              options={this._options}
               fileSize={this.state.minifiedSize}
               theme="paraiso-dark"
-              placeholder="Terser output will be shown here"
+              placeholder="// Terser output will be shown here"
             />
           </div>
         </div>
@@ -84,21 +87,20 @@ class Repl extends Component {
       this.setState({ optionsErrorMessage: e.message });
     }
 
-    this._minify(this.state.code);
+    this._minifyToState(this.state.code);
   };
 
-  _minifyToState = debounce(
-    code => this._minify(code, this._persistState),
-    DEBOUNCE_DELAY
-  );
+  _minifyToState = debounce(code => this._minify(code), DEBOUNCE_DELAY);
 
   _minify = async (code, setStateCallback) => {
     // we need to clone this because terser mutates the options object :(
     const terserOpts = cloneDeep(this.state.terserOptions);
 
+    const minifyId = ++this._minifyId;
     // TODO: put this in a worker to avoid blocking the UI on heavy content
     try {
       const result = await this.props.terser.minify(code, terserOpts);
+      if (this._minifyId !== minifyId) return;
 
       if (result.error) {
         this.setState({ errorMessage: result.error.message });
@@ -108,6 +110,7 @@ class Repl extends Component {
           minifiedSize: getCodeSizeInBytes(result.code),
           errorMessage: null
         });
+        saveState(this.state);
       }
     } catch (e) {
       this.setState({ errorMessage: e.message });
